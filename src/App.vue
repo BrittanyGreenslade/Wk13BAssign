@@ -1,18 +1,19 @@
 <template>
   <div id="app">
     <tweets-section />
+    <!-- uses the component TweetsSection in HTML -->
   </div>
 </template>
 
 <script>
+//imports the component TweetsSection
 import TweetsSection from "./components/TweetsSection.vue";
-// import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: "App",
   components: {
     TweetsSection,
-    // HelloWorld
+    //registering the component TweetsSection
   },
 };
 </script>

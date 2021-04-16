@@ -1,17 +1,25 @@
 <template>
-  <div id="pageContainer">
-    <button id="toggleButton" @click="toggleView">
+  <div id="componentContainer">
+    <!-- on click, call the function 'toggleView' -->
+    <button @click="toggleView">
       Toggle
     </button>
     <br />
+    <!-- bind the class cardView to this div for styling when cardViewOn===true and bind the class listView when 
+    cardViewOn===false -->
+    <!-- toggles trueness of cardViewOn boolean here -->
     <div v-bind:class="{ cardView: cardViewOn, listView: !cardViewOn }">
+      <!-- loop through 'manyTweets' to find each 'tweet' with individual ids  -->
       <section v-for="tweet in manyTweets" :key="tweet.id">
+        <!-- for every tweet in manyTweets, get the username and put it in an h3 tag -->
         <h3>
           {{ tweet.username }}
         </h3>
+        <!-- for every tweet in manyTweets, get the tweet and put it in a p tag -->
         <p>
           {{ tweet.tweet }}
         </p>
+        <!-- for every tweet in manyTweets, get the createdAt (date) and put it in a p tag -->
         <p>
           {{ tweet.createdAt }}
         </p>
@@ -23,8 +31,10 @@
 <script>
 export default {
   name: "tweets-section",
+  //putting the tweet data here so it is accessible in mustaches in HTML
   data() {
     return {
+      //returns the array of tweets
       manyTweets: [
         {
           tweet: `Yea your booty is nice but how thicc is your love for the environment.`,
@@ -97,14 +107,15 @@ export default {
           id: 10,
         },
       ],
-      //need to declare this here so it can be updated on click, otherwise the cardViewOn variable can't be
-      //accessed outside of the function below. making it a 'global' variable I guess?
+      //declare cardViewOn as true here so it can be accessed out of the function - it is updated on click
       cardViewOn: true,
     };
   },
   methods: {
-    //changes the value of the variable when the fn is called
     toggleView: function() {
+      //the 'trueness' of cardViewOn is toggled in the {{}} above. this toggles between what the status of the
+      //cardViewOn variable is AT THE TIME of the click - if it's false at click, it becomes true; if it's true at
+      //click, it becomes false
       this.cardViewOn = !this.cardViewOn;
     },
   },
@@ -112,16 +123,18 @@ export default {
 </script>
 
 <style scoped>
-#pageContainer {
+/* styling for THIS component only */
+#componentContainer {
   display: grid;
   place-items: center;
 }
-
+/* css for tweets in class listView (bound to the div above when cardViewOn===false) */
 .listView {
   display: grid;
   width: 50%;
   row-gap: 20px;
 }
+/* css for tweets in class cardView (bound to the div above when cardViewOn===true) */
 .cardView {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
@@ -129,6 +142,7 @@ export default {
   row-gap: 20px;
   width: 70%;
 }
+/* styling for each individual tweet container */
 section {
   box-shadow: 5px 5px 5px #888;
 }
